@@ -1,0 +1,70 @@
+@use 'helpers' as *;
+
+html {
+    &.is-lock {
+        overflow: hidden
+    }
+}
+
+body {
+    @include fluid-text(18, 14);
+
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family-base);
+    line-height: 1.5;
+    color: var(--color-gray-blue);
+    background-color: var(--color-gray-white);
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+    font-weight: 700;
+}
+
+h1, .h1 {
+    @include fluid-text(50, 31);
+
+    line-height: 1.2;
+    color: var(--color-white);
+}
+
+h2, .h2 {
+    @include fluid-text(40, 30);
+
+    color: var(--color-dark-blue-1);
+}
+
+h3, .h3 {
+    @include fluid-text(30, 25);
+}
+
+a,
+button,
+label,
+input,
+textarea,
+select,
+svg * {
+    transition-duration: var(--transition-duration);
+}
+
+a {
+    color: inherit;
+
+    @include hover {
+        color: var(--color-accent);
+    }
+
+    &[class] {
+        text-decoration: none;
+    }
+}
+
+:focus-visible {
+    outline: rem(1) dashed var(--color-violet);
+    border-radius: rem(5);
+    outline-offset: rem(4);
+    transition-duration: 0s !important;
+}

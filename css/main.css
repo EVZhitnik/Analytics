@@ -1,0 +1,253 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+body,
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+:where(h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+:where(ul[class]) {
+  list-style: none;
+}
+
+:where(address[class]) {
+  font-style: normal;
+}
+
+p {
+  --paragraphMarginBottom: 24px;
+  margin-block: 0;
+}
+
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  height: 100%;
+  scrollbar-gutter: stable;
+}
+
+html,
+:has(:target) {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
+}
+
+a:where([class]) {
+  display: inline-flex;
+}
+
+button,
+label {
+  cursor: pointer;
+}
+
+svg * {
+  transition-property: fill, stroke;
+}
+
+:where(table) {
+  border-collapse: collapse;
+  border-color: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+:root {
+  --color-white: #FFFFFF;
+  --color-gray-white: #F8F9FF;
+  --color-gray-blue: #8794BA;
+  --color-dark-blue-1: #172755;
+  --color-dark-blue-2: #0F1F4B;
+  --color-blue-btn: #465B95;
+  --color-blue-line: #2A407C;
+  --color-pink: #EF2A82;
+  --color-violet: #7B61FF;
+  --color-accent: rgba(239, 42, 131, 0.7);
+  --border-base: 0.0625rem solid var(--color-blue-line);
+  --shadow: 0 1.125rem 3.125rem -0.9375rem rgba(25, 42, 89, 0.2);
+  --shadow-card: 0 1.125rem 3.125rem -0.9375rem #060f28;
+  --font-family-base: "Roboto", sans-serif;
+  --container-width: 73.75rem;
+  --container-padding-x: 1.25rem;
+  --transition-duration: 0.2s;
+}
+
+.container {
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
+}
+
+@media (width <= 47.99875rem) {
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
+@media (width > 47.99875rem) {
+  .visible-mobile {
+    display: none !important;
+  }
+}
+
+html.is-lock {
+  overflow: hidden;
+}
+
+body {
+  font-size: clamp(0.875rem, 0.7515822785rem + 0.5063291139vw, 1.125rem);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-base);
+  line-height: 1.5;
+  color: var(--color-gray-blue);
+  background-color: var(--color-gray-white);
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+  font-weight: 700;
+}
+
+h1, .h1 {
+  font-size: clamp(1.9375rem, 1.3512658228rem + 2.4050632911vw, 3.125rem);
+  line-height: 1.2;
+  color: var(--color-white);
+}
+
+h2, .h2 {
+  font-size: clamp(1.875rem, 1.5664556962rem + 1.2658227848vw, 2.5rem);
+  color: var(--color-dark-blue-1);
+}
+
+h3, .h3 {
+  font-size: clamp(1.5625rem, 1.4082278481rem + 0.6329113924vw, 1.875rem);
+}
+
+a,
+button,
+label,
+input,
+textarea,
+select,
+svg * {
+  transition-duration: var(--transition-duration);
+}
+
+a {
+  color: inherit;
+}
+@media (any-hover: hover) {
+  a:hover {
+    color: var(--color-accent);
+  }
+}
+@media (any-hover: none) {
+  a:active {
+    color: var(--color-accent);
+  }
+}
+a[class] {
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 0.0625rem dashed var(--color-violet);
+  border-radius: 0.3125rem;
+  outline-offset: 0.25rem;
+  transition-duration: 0s !important;
+}
+
+/*# sourceMappingURL=main.css.map */

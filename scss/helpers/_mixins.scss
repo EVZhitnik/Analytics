@@ -1,0 +1,106 @@
+@use 'sass:math';
+@use 'functions' as *;
+
+@mixin fluid-text($max: 48, $min: 16) {
+    font-size: fluid($max, $min);
+}
+
+@mixin hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@mixin show {
+    opacity: 1;
+    visibility: visible;
+}
+
+@mixin square($size) {
+    width: $size;
+    height: $size;
+}
+
+@mixin flexbox(
+    $isInline: true,
+    $justify: flex-start,
+    $align: stretch,
+    $direction: row,
+    $wrap: nowrap
+) {
+    @if $isInline {
+        display: flex;
+    } @else {
+        display: inline-flex;
+    }
+    
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin abs-position($position) {
+    position: absolute;
+    
+    @if $position == 'both' {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    } @else if $position == 'horizontal' {
+        left: 50%;
+        transform: translateX(-50%);
+    } @else if $position == 'vertical' {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+@mixin triangle($direction, $size, $color) {
+    width: 0;
+    height: 0;
+  
+    @if $direction == 'up' {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: $size solid $color;
+    } @else if $direction == 'down' {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-top: $size solid $color;
+    } @else if $direction == 'right' {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left: $size solid $color;
+    } @else if $direction == 'left' {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-right: $size solid $color;
+    }
+}
+
+@mixin transition($properties...) {
+    $transition: ();
+    
+    @each $property in $properties {
+        $transition: append(
+        $transition, 
+        ($property 0.2s ease-in-out),
+        comma
+        );
+    }
+    
+    transition: $transition;
+}
+
+@mixin visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    border: 0 !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+    clip-path: inset(100%) !important;
+    clip: rect(0 0 0 0) !important;
+    overflow: hidden !important;
+}

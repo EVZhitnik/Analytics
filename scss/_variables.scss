@@ -1,0 +1,26 @@
+@use 'helpers' as *;
+
+:root {
+    --color-white: #FFFFFF;
+    --color-gray-white: #F8F9FF;
+    --color-gray-blue: #8794BA;
+    --color-dark-blue-1: #172755;
+    --color-dark-blue-2: #0F1F4B;
+    --color-blue-btn: #465B95;
+    --color-blue-line: #2A407C;
+    --color-pink: #EF2A82;
+    --color-violet: #7B61FF;
+    --color-accent: rgba(239, 42, 131, 0.7);
+
+    --border-base: #{rem(1)} solid var(--color-blue-line);
+
+    --shadow: 0 #{rem(18)} #{rem(50)} #{rem(-15)} rgba(25, 42, 89, 0.2);
+    --shadow-card: 0 #{rem(18)} #{rem(50)} #{rem(-15)} #060f28;
+
+    --font-family-base: 'Roboto', sans-serif;
+
+    --container-width: #{rem(1180)};
+    --container-padding-x: #{rem(20)};
+
+    --transition-duration: 0.2s;
+}

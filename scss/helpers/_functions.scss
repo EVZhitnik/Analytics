@@ -1,0 +1,55 @@
+@use 'sass:math';
+
+@function strip-unit($value) {
+    @if type-of($value) == "number" and not unitless($value) {
+        @return $value / ($value * 0 + 1);
+    }
+    @return $value;
+}
+
+@function rem($pixels, $base: 16px) {
+
+    @if type-of($pixels) != "number" {
+        @error "Параметр $pixels должен быть числом. Получено `#{$pixels}`.";
+    }
+    
+    @if type-of($base) != "number" {
+        @error "Базовый размер должен быть числом. Получено `#{$base}`.";
+    }
+    
+    @if not unitless($pixels) and unit($pixels) != "px" {
+        @error "Параметр $pixels должен быть в пикселях (px) или без единиц. Получено `#{$pixels}`.";
+    }
+    
+    @if not unitless($base) and unit($base) != "px" {
+        @error "Базовый размер должен быть в пикселях (px) или без единиц. Получено `#{$base}`.";
+    }
+    
+    $pixels-value: strip-unit($pixels);
+    $base-value: strip-unit($base);
+    
+    @if $base-value == 0 {
+        @error "Базовый размер не может быть нулевым.";
+    }
+    
+    @return ($pixels-value / $base-value) * 1rem;
+}
+
+@function fluid($max: 100, $min: 10) {
+    $maxViewportWidth: 1180;
+    $minViewportWidth: 390;
+
+    $maxSize: math.div($max, 16);
+    $minSize: math.div($min, 16);
+    $maxWidth: math.div($maxViewportWidth, 16);
+    $minWidth: math.div($minViewportWidth, 16);
+
+    $slope: math.div(($maxSize - $minSize), ($maxWidth - $minWidth));
+    $yAxisIntersection: -$minWidth * $slope + $minSize;
+
+    @return clamp(
+        #{$minSize * 1rem},
+        #{$yAxisIntersection * 1rem} + #{$slope * 100vw},
+        #{$maxSize * 1rem}
+    );
+}

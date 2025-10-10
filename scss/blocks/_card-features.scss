@@ -1,0 +1,71 @@
+@use 'helpers' as *;
+
+.card-features {
+    &__item {
+        display: flex;
+        align-items: center;
+
+        @include mobile {
+            flex-direction: column;
+            row-gap: rem(30);
+        }
+
+        &:nth-child(2) {
+            flex-direction: row-reverse;
+
+            @include mobile {
+                flex-direction: column;
+            }
+        }
+
+        &:not(:last-child) {
+            margin-bottom: rem(120);
+
+            @include mobile {
+                margin-bottom: rem(60);
+            }
+        }
+    }
+
+    &__content {
+        display: grid;
+        row-gap: rem(30);
+        max-width: rem(480);
+
+        @include tablet {
+           max-width: rem(380); 
+        }
+
+        @include mobile {
+            row-gap: rem(20);
+            max-width: 100%;
+        }
+        
+        &--margin {
+            margin-right: rem(100);
+
+            @include tablet {
+                margin-right: rem(30);
+            }
+        }
+    }
+
+    &__image {
+        img {
+            box-shadow: var(--shadow);
+            border-radius: rem(30);
+        }
+
+        &--margin {
+            margin-right: rem(100);
+
+            @include tablet {
+                margin-right: rem(30);
+            }
+
+            @include mobile {
+                margin: 0;
+            }
+        }
+    }
+}

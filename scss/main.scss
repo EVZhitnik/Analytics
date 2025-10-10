@@ -8,6 +8,11 @@
 @use 'blocks/header';
 @use 'blocks/burger-button';
 
+@use 'blocks/features';
+@use 'blocks/heading';
+@use 'blocks/offers';
+@use 'blocks/card-features';
+
 // .header,
 // main > *:not(:last-child),
 // .footer {

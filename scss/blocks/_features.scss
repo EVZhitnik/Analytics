@@ -1,0 +1,11 @@
+@use 'helpers' as *;
+
+.features {
+    padding-top: rem(38);
+    padding-bottom: rem(114);
+
+    @include tablet {
+        padding-top: rem(50);
+        padding-bottom: rem(73);
+    }
+}

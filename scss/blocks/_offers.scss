@@ -1,0 +1,54 @@
+@use 'helpers' as *;
+
+.offers {
+    &:not(:last-child) {
+        margin-bottom: rem(130);
+
+        @include mobile {
+            margin-bottom: rem(70);
+        }
+    }
+
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: rem(20);
+
+        @include mobile-s {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__item {
+        @include mobile-s {
+            display: flex;
+            column-gap: rem(25);
+        }
+    }
+
+    &__icon {
+        text-align: center;
+
+        &:not(:last-child) {
+            margin-bottom: rem(26);
+        }
+    }
+
+    &__text {
+        display: grid;
+        row-gap: rem(15);
+        text-align: center;
+
+        @include mobile-s {
+            text-align: left;
+            align-self: start;
+            row-gap: rem(9);
+        }
+    }
+
+    &__title {
+        display: block;
+        font-weight: 700;
+        color: var(--color-dark-blue-1);
+    }
+}

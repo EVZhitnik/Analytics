@@ -3,7 +3,6 @@
 .hero {
     position: relative;
     overflow: hidden;
-    background-color: var(--color-gray-white);
 
     &::before {
         @include square(rem(660));

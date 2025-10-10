@@ -34,6 +34,7 @@ h2, .h2 {
     @include fluid-text(40, 30);
 
     color: var(--color-dark-blue-1);
+    line-height: normal;
 }
 
 h3, .h3 {

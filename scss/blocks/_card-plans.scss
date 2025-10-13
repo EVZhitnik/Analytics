@@ -1,0 +1,76 @@
+@use 'helpers' as *;
+
+.card-plans {
+    &__content {
+        line-height: normal;
+        text-align: center;
+        background-color: var(--color-dark-blue-2);
+        border-radius: rem(30);
+        padding: rem(50) rem(60) rem(70);
+        transition-duration: var(--transition-duration);
+
+        @include hover {
+            scale: 1.05;
+            background-color: var(--color-white);
+            box-shadow: var(--shadow-card);
+
+            @include mobile {
+                scale: 1;
+            }
+
+            .card-plans__title,
+            .card-plans__price {
+                color: var(--color-dark-blue-2);
+            }
+
+            .card-plans__link {
+                background-color: var(--color-pink);
+                border-color: var(--color-pink);
+            }
+        }
+    }
+
+    &__header {
+        display: grid;
+        row-gap: rem(10);
+        padding-bottom: rem(37);
+        border-bottom: var(--border-base);
+    }
+
+    &__title {
+        color: var(--color-white);
+    }
+
+    &__main {
+        padding-top: rem(28);
+
+        &:not(:last-child) {
+            margin-bottom: rem(40);
+        }
+    }
+
+    &__price {
+        font-weight: 700;
+        font-size: rem(30);
+        color: var(--color-white);
+
+        span {
+            font-size: rem(60);
+        }
+    }
+
+    &__link {
+        @include flexbox(true, center, center);
+
+        font-size: rem(16);
+        color: var(--color-white);
+        background-color: transparent;
+        border: var(--border-base);
+        border-radius: rem(68);
+        padding: rem(15.5) rem(80);
+
+        @include hover {
+            color: var(--color-white);
+        }
+    }
+}

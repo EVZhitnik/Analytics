@@ -1,0 +1,59 @@
+@use 'helpers' as *;
+
+.plans {
+    position: relative;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &::before {
+        background-color: var(--color-pink);
+        clip-path: polygon(0 20%, 100% 1%, 100% 100%, 0% 100%);
+
+        @include tablet {
+            clip-path: polygon(0 10%, 100% 1%, 100% 100%, 0% 100%);
+        }
+
+        @include mobile {
+            clip-path: polygon(0 7%, 100% 1%, 100% 100%, 0% 100%);
+        }
+    }
+
+    &::after {
+        background-color: var(--color-dark-blue-1);
+        clip-path: polygon(0 21%, 100% 2%, 100% 101%, 0% 100%);
+
+        @include tablet {
+            clip-path: polygon(0 11%, 100% 2%, 100% 101%, 0% 100%);
+        }
+
+        @include mobile {
+            clip-path: polygon(0 8%, 100% 2%, 100% 101%, 0% 100%);
+        }
+    }
+
+    &__header {
+        padding-top: rem(272);
+
+        @include tablet {
+            padding-top: rem(132);
+        }
+    }
+
+    &__body {
+        padding-bottom: rem(100);
+        border-bottom: var(--border-base);
+
+        @include tablet {
+            padding-bottom: rem(45);
+        }
+    }
+}

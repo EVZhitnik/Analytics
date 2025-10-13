@@ -19,8 +19,18 @@
         }
     }
 
+    &__title {
+        &--plans {
+            color: var(--color-white);
+        }
+    }
+
     &__description {
         max-width: rem(1060);
         margin: 0 auto;
+
+        &--plans {
+            max-width: rem(640);
+        }
     }
 }

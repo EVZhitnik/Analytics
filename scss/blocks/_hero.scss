@@ -50,16 +50,16 @@
 
         &::before {
             background-color: var(--color-pink);
-            clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 72%, 0% 100%);
 
             @include tablet {
-                clip-path: polygon(0 0, 100% 0, 100% 92%, 0% 100%);
+                clip-path: polygon(0 0, 100% 0, 100% 91%, 0% 99%);
             }
         }
 
         &::after {
             background-color: var(--color-dark-blue-1);
-            clip-path: polygon(0 0, 100% 0, 100% 68%, 0% 98%);
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 98%);
 
             @include tablet {
                 clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 98%);

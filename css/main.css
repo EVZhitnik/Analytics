@@ -300,16 +300,16 @@ a[class] {
 }
 .hero__body::before {
   background-color: var(--color-pink);
-  clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 72%, 0% 100%);
 }
 @media (width <= 63.99875rem) {
   .hero__body::before {
-    clip-path: polygon(0 0, 100% 0, 100% 92%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 91%, 0% 99%);
   }
 }
 .hero__body::after {
   background-color: var(--color-dark-blue-1);
-  clip-path: polygon(0 0, 100% 0, 100% 68%, 0% 98%);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 98%);
 }
 @media (width <= 63.99875rem) {
   .hero__body::after {
@@ -410,10 +410,10 @@ a[class] {
   animation-name: scrolling-header;
   animation-fill-mode: both;
   animation-timeline: scroll();
-  animation-range: 3.125rem 12.5rem;
+  animation-range: 3.125rem 8.125rem;
   padding-top: 3.125rem;
 }
-@media (width <= 47.99875rem) {
+@media (width <= 63.99875rem) {
   .header {
     animation-range: 1.25rem 3.125rem;
   }

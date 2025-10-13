@@ -8,10 +8,10 @@
     animation-name: scrolling-header;
     animation-fill-mode: both;
     animation-timeline: scroll();
-    animation-range: rem(50) rem(200);
+    animation-range: rem(50) rem(130);
     padding-top: rem(50);
 
-    @include mobile {
+    @include tablet {
         animation-range: rem(20) rem(50);
     }
 

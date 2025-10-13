@@ -1,0 +1,46 @@
+@use 'helpers' as *;
+
+.footer {
+    padding-top: rem(63);
+    padding-bottom: rem(103);
+
+    @include tablet {
+        padding-bottom: rem(45);
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @include mobile {
+            flex-direction: column;
+            row-gap: rem(30);
+        }
+    }
+
+    &__logo {
+        display: flex;
+    }
+
+    &__menu {
+        &-list {
+            display: flex;
+            align-items: center;
+            column-gap: rem(36);
+
+            @include tablet {
+                gap: rem(25);
+            }
+
+            @include mobile-s {
+                flex-direction: column;
+                row-gap: rem(20);
+            }
+        }
+
+        &-item {
+            display: flex;
+        }
+    }
+}

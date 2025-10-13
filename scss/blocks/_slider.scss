@@ -1,0 +1,50 @@
+@use 'helpers' as *;
+
+.slider {
+    &__container {
+        overflow: hidden;
+        width: 100%;
+
+        @include tablet-above {
+            overflow: visible;
+        }
+    }
+
+    &__wrapper {
+        @include transition(transform);
+
+        display: flex;
+        column-gap: rem(80);
+        padding-inline: rem(20);
+        row-gap: rem(30);
+        touch-action: pan-y pinch-zoom;
+        cursor: grab;
+
+        @include tablet {
+            column-gap: rem(30);
+        }
+
+        @include mobile-above {
+            justify-content: center;
+            flex-wrap: wrap;
+            transform: none;
+            cursor: default;
+        }
+    }
+
+    &__slide {
+        width: 100%;
+        max-width: rem(340);
+
+        @include tablet {
+            width: calc(100% - 25px);
+        }
+    }
+
+    &--dragging {
+        .slider__wrapper {
+            cursor: grabbing;
+            transition: none;
+        }
+    }
+}

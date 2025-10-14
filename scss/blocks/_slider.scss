@@ -33,5 +33,8 @@
         width: 100%;
         max-width: rem(340);
         user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
     }
 }

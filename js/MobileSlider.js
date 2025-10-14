@@ -14,7 +14,7 @@ class MobileSlider {
     this.rootElement = document.querySelector(this.selectors.root);
     this.containerElement = this.rootElement.querySelector(this.selectors.container);
     this.wrapperElement = this.rootElement.querySelector(this.selectors.wrapper);
-    this.slidesElements = Array.from(this.rootElement.querySelectorAll(this.selectors.slide));
+    this.slidesElements = this.rootElement.querySelectorAll(this.selectors.slide);
 
     this.currentIndex = 0;
     this.startX = 0;

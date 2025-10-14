@@ -15,6 +15,7 @@
         column-gap: rem(80);
         row-gap: rem(30);
         touch-action: pan-y;
+        -webkit-user-drag: none;
 
         @include tablet {
             column-gap: rem(30);
@@ -31,5 +32,6 @@
     &__slide {
         width: 100%;
         max-width: rem(340);
+        user-select: none;
     }
 }

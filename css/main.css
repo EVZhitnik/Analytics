@@ -1010,6 +1010,7 @@ a[class] {
   column-gap: 5rem;
   row-gap: 1.875rem;
   touch-action: pan-y;
+  -webkit-user-drag: none;
 }
 @media (width <= 63.99875rem) {
   .slider__wrapper {
@@ -1027,6 +1028,7 @@ a[class] {
 .slider__slide {
   width: 100%;
   max-width: 21.25rem;
+  user-select: none;
 }
 
 .footer {

@@ -6,7 +6,6 @@ class MobileSlider {
     slide: '[data-js-slider-slide]',
   }
 
-  // опции
   breakpoint = 768;
   swipeThreshold = 50;
   overscroll = 60;
@@ -26,13 +25,13 @@ class MobileSlider {
     this.inited = false;
     this.bound = false;
 
-    this.onResize = this.debounce(this.handleResize.bind(this), 120);
+    this.onResize = this.debounce(this.handleResize, 120);
     window.addEventListener('resize', this.onResize);
 
     if (window.innerWidth <= this.breakpoint) this.init();
   }
 
-  calcMetrics() {
+  calcMetrics = () => {
     if (!this.wrapperElement || this.slidesElements.length === 0) return;
 
     this.slideWidth = this.slidesElements[0].offsetWidth;
@@ -44,7 +43,6 @@ class MobileSlider {
     this.slideFullWidth = this.slideWidth + this.gap;
     this.containerWidth = this.containerElement ? this.containerElement.offsetWidth : this.rootElement.offsetWidth;
     this.offset = (this.containerWidth - this.slideWidth) / 2;
-
 
     this.maxTranslate = this.offset;
     this.minTranslate = -((this.slidesElements.length - 1) * this.slideFullWidth) + this.offset;
@@ -81,6 +79,7 @@ class MobileSlider {
 
   endDrag = (e) => {
     if (!this.isDragging) return;
+
     this.isDragging = false;
     this.wrapperElement.style.cursor = 'grab';
 
@@ -118,9 +117,9 @@ class MobileSlider {
   bindEvents() {
     if (this.bound) return;
 
-    this.wrapperElement.addEventListener('touchstart', this.startDrag, { passive: true });
-    window.addEventListener('touchmove', this.onDrag, { passive: true });
-    window.addEventListener('touchend', this.endDrag, { passive: true });
+    this.wrapperElement.addEventListener('touchstart', this.startDrag);
+    window.addEventListener('touchmove', this.onDrag);
+    window.addEventListener('touchend', this.endDrag);
 
     this.bound = true;
   }
@@ -128,9 +127,9 @@ class MobileSlider {
   unbindEvents() {
     if (!this.bound) return;
 
-    this.wrapperElement.removeEventListener('touchstart', this.startDrag, { passive: true });
-    window.removeEventListener('touchmove', this.onDrag, { passive: true });
-    window.removeEventListener('touchend', this.endDrag, { passive: true });
+    this.wrapperElement.removeEventListener('touchstart', this.startDrag);
+    window.removeEventListener('touchmove', this.onDrag);
+    window.removeEventListener('touchend', this.endDrag);
 
     this.bound = false;
   }
@@ -169,6 +168,7 @@ class MobileSlider {
 
   debounce = (fn, ms = 100) => {
     let t;
+    
     return (...args) => {
       clearTimeout(t);
       t = setTimeout(() => fn.apply(this, args), ms);

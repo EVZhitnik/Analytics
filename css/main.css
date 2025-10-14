@@ -1000,19 +1000,16 @@ a[class] {
   overflow: hidden;
   width: 100%;
 }
-@media (width > 63.99875rem) {
+@media (width > 47.99875rem) {
   .slider__container {
     overflow: visible;
   }
 }
 .slider__wrapper {
-  transition: transform 0.2s ease-in-out;
   display: flex;
   column-gap: 5rem;
-  padding-inline: 1.25rem;
   row-gap: 1.875rem;
-  touch-action: pan-y pinch-zoom;
-  cursor: grab;
+  touch-action: pan-y;
 }
 @media (width <= 63.99875rem) {
   .slider__wrapper {
@@ -1030,15 +1027,6 @@ a[class] {
 .slider__slide {
   width: 100%;
   max-width: 21.25rem;
-}
-@media (width <= 63.99875rem) {
-  .slider__slide {
-    width: calc(100% - 25px);
-  }
-}
-.slider--dragging .slider__wrapper {
-  cursor: grabbing;
-  transition: none;
 }
 
 .footer {

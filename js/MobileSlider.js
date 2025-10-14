@@ -6,149 +6,143 @@ class MobileSlider {
         slide: '[data-js-slider-slide]',
     }
 
-    stateClasses = {
-        isDragging: 'slider--dragging',
-    }
-
     constructor() {
-        this.rootElement = document.querySelector(this.selectors.root); 
+        this.rootElement = document.querySelector(this.selectors.root);
         this.containerElement = this.rootElement.querySelector(this.selectors.container);
         this.wrapperElement = this.rootElement.querySelector(this.selectors.wrapper);
         this.slidesElements = this.rootElement.querySelectorAll(this.selectors.slide);
 
-        this.isMobile = window.innerWidth < 768;
+        this.currentIndex = 0;
         this.startX = 0;
         this.currentTranslate = 0;
         this.prevTranslate = 0;
         this.isDragging = false;
-        this.animationID = null;
-        this.activePointerId = null;
 
-        this.init();
+        this.inited = false;
+
+        this.onResize = this.debounce(this.handleResize, 120);
+        window.addEventListener('resize', this.onResize);
+
+        if (window.innerWidth <= 768) this.init();
     }
 
-    touchStart = (event) => {
-        if (!this.isMobile) return;
-
-        const clientX = event.clientX;
-
-        this.startX = clientX;
+    startDrag = (e) => {
         this.isDragging = true;
-        this.activePointerId = event.pointerId;
-        this.containerElement.classList.add(this.stateClasses.isDragging);
-
-        this.wrapperElement.setPointerCapture(event.pointerId);
-
-        this.animationID = requestAnimationFrame(this.animation);
+        this.startX = e.touches ? e.touches[0].clientX : e.clientX;
+        this.wrapperElement.style.cursor = 'grabbing';
+        this.wrapperElement.style.transition = 'none';
     }
 
-    touchMove = (event) => {
-        if (!this.isDragging || !this.isMobile || event.pointerId !== this.activePointerId) return;
-
-        const clientX = event.clientX;
-        const diff = clientX - this.startX;
-
-        this.currentTranslate = this.prevTranslate + diff;
-    }
-
-    touchEnd = (event) => {
-        if (!this.isMobile || event.pointerId !== this.activePointerId) return;
-
-        this.isDragging = false;
-        this.containerElement.classList.remove(this.stateClasses.isDragging);
-        cancelAnimationFrame(this.animationID);
-
-        this.wrapperElement.releasePointerCapture(event.pointerId);
-        this.activePointerId = null;
-
-        this.snapToSlide();
-    }
-
-    touchCancel = (event) => {
-        if (!this.isMobile || event.pointerId !== this.activePointerId) return;
-
-        this.isDragging = false;
-        this.containerElement.classList.remove(this.stateClasses.isDragging);
-        cancelAnimationFrame(this.animationID);
-
-        this.wrapperElement.releasePointerCapture(event.pointerId);
-        this.activePointerId = null;
-
-        this.currentTranslate = this.prevTranslate;
-        this.setSliderPosition();
-    }
-
-    animation = () => {
+    onDrag = (e) => {
         if (!this.isDragging) return;
 
-        this.setSliderPosition();
-        this.animationID = requestAnimationFrame(this.animation);
-    }
+        const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+        const deltaX = currentX - this.startX;
 
-    setSliderPosition = () => {
+        this.currentTranslate = this.prevTranslate + deltaX;
         this.wrapperElement.style.transform = `translateX(${this.currentTranslate}px)`;
     }
 
-    snapToSlide = () => {
-        const containerRect = this.containerElement.getBoundingClientRect();
+    endDrag = (e) => {
+        if (!this.isDragging) return;
+        this.isDragging = false;
+        this.wrapperElement.style.cursor = 'grab';
 
-        let closestSlide = null;
-        let minDistance = Infinity;
+        const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+        const deltaX = endX - this.startX;
 
-        this.slidesElements.forEach((slide, index) => {
-            const slideRect = slide.getBoundingClientRect();
-            const distance = Math.abs(slideRect.left - containerRect.left);
-
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestSlide = index;
-            }
-        });
-
-        if (closestSlide !== null) {
-            this.goToSlide(closestSlide);
+        if (deltaX < -50 && this.currentIndex < this.slidesElements.length - 1) {
+            this.currentIndex++;
+        } else if (deltaX > 50 && this.currentIndex > 0) {
+            this.currentIndex--;
         }
+
+        this.updatePosition();
     }
 
-    goToSlide = (slideIndex) => {
-        const slide = this.slidesElements[slideIndex];
-        const containerRect = this.containerElement.getBoundingClientRect();
+    updatePosition = () => {
+        const slideWidth = this.slidesElements[0].offsetWidth;
+        const gap = parseInt(getComputedStyle(this.wrapperElement).columnGap) || 0;
+        const slideFullWidth = slideWidth + gap;
+        const offset = (this.containerElement.offsetWidth - slideWidth) / 2;
 
-        const targetPosition = -(slide.offsetLeft - (containerRect.width - slide.offsetWidth) / 2);
+        const translateX = -(this.currentIndex * slideFullWidth) + offset;
 
-        this.currentTranslate = targetPosition;
-        this.prevTranslate = targetPosition;
-
-        this.setSliderPosition();
-    }
-
-    updateSliderPosition = () => {
-        this.currentTranslate = 0;
-        this.prevTranslate = 0;
-        this.setSliderPosition();
+        this.wrapperElement.style.transition = 'transform 0.3s ease';
+        this.wrapperElement.style.transform = `translateX(${translateX}px)`;
+        this.prevTranslate = translateX;
+        this.currentTranslate = translateX;
     }
 
     handleResize = () => {
-        this.isMobile = window.innerWidth < 768;
-    
-        if (this.isMobile) {
-            this.updateSliderPosition();
-        } else {
-            this.wrapperElement.style.transform = 'none';
+        const isMobile = window.innerWidth <= 768;
+
+        if (isMobile && !this.inited) {
+            this.init();
+            return;
+        }
+
+        if (!isMobile && this.inited) {
+            this.destroy();
+            return;
+        }
+
+        if (isMobile && this.inited) {
+            this.updatePosition();
         }
     }
 
+    debounce = (fn, ms = 100) => {
+        let t;
+
+        return (...args) => {
+            clearTimeout(t);
+            t = setTimeout(() => fn.apply(this, args), ms);
+        };
+    }
+
+    bindEvents() {
+        if (this.bound) return;
+
+        this.wrapperElement.addEventListener('touchstart', this.startDrag);
+        this.wrapperElement.addEventListener('touchmove', this.onDrag);
+        this.wrapperElement.addEventListener('touchend', this.endDrag);
+
+        this.wrapperElement.addEventListener('mousedown', this.startDrag);
+        window.addEventListener('mousemove', this.onDrag);
+        window.addEventListener('mouseup', this.endDrag);
+
+        this.bound = true;
+    }
+
+    unbindEvents() {
+        if (!this.bound) return;
+
+        this.wrapperElement.removeEventListener('touchstart', this.startDrag);
+        this.wrapperElement.removeEventListener('touchmove', this.onDrag);
+        this.wrapperElement.removeEventListener('touchend', this.endDrag);
+
+        this.wrapperElement.removeEventListener('mousedown', this.startDrag);
+        window.removeEventListener('mousemove', this.onDrag);
+        window.removeEventListener('mouseup', this.endDrag);
+
+        this.bound = false;
+    }
+
     init() {
-        if (!this.isMobile) return;
+        if (this.inited) return;
+        this.inited = true;
+        this.bindEvents();
+        this.updatePosition();
+    }
 
-        this.wrapperElement.addEventListener('pointerdown', this.touchStart);
-        this.wrapperElement.addEventListener('pointermove', this.touchMove);
-        this.wrapperElement.addEventListener('pointerup', this.touchEnd);
-        this.wrapperElement.addEventListener('pointercancel', this.touchCancel);
-
-        this.wrapperElement.addEventListener('contextmenu', (e) => e.preventDefault());
-        window.addEventListener('resize', this.handleResize);
+    destroy() {
+        this.unbindEvents();
+        this.wrapperElement.style.transition = '';
+        this.wrapperElement.style.transform = '';
+        this.inited = false;
     }
 }
+
 
 export default MobileSlider;

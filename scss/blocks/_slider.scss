@@ -5,20 +5,16 @@
         overflow: hidden;
         width: 100%;
 
-        @include tablet-above {
+        @include mobile-above {
             overflow: visible;
         }
     }
 
     &__wrapper {
-        @include transition(transform);
-
         display: flex;
         column-gap: rem(80);
-        padding-inline: rem(20);
         row-gap: rem(30);
-        touch-action: pan-y pinch-zoom;
-        cursor: grab;
+        touch-action: pan-y;
 
         @include tablet {
             column-gap: rem(30);
@@ -35,16 +31,5 @@
     &__slide {
         width: 100%;
         max-width: rem(340);
-
-        @include tablet {
-            width: calc(100% - 25px);
-        }
-    }
-
-    &--dragging {
-        .slider__wrapper {
-            cursor: grabbing;
-            transition: none;
-        }
     }
 }
